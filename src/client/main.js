@@ -1,34 +1,54 @@
-import planeSprite from "./assets/sprites/fighter-plane.png";
+import "babel-polyfill";
+
+import ImageLoader from "./core/ImageLoader";
+
+import fighterImagePath from "./assets/images/fighter.png";
+import mapImagePath from "./assets/images/map.png";
 
 const canvasMaxWidth = 1280;
 
-const planeSourceWidth = 245;
-const planeSourcHeight = 350;
-const planeSourceY = 0;
-const planeWidth = 123;
-const planeHeight = 175;
+const fighterSourceWidth = 245;
+const fighterSourcHeight = 350;
+const fighterSourceY = 0;
+const fighterWidth = 123;
+const fighterHeight = 175;
 
 let frames = [0, 245, 490];
 let frame = 0;
 let context;
-let planeImage;
+let fighterImage;
+let mapImage;
 let canvas;
 let devicePixelRatio;
 
-function drawPlane() {
-  const planeX = (canvas.width * 0.5) / devicePixelRatio - planeWidth / 2;
-  const planeY = canvas.height / devicePixelRatio - planeHeight - 30;
+function drawMap() {
+  context.drawImage(
+    mapImage,
+    canvas.height / devicePixelRatio,
+    0,
+    6000,
+    2081,
+    0,
+    0,
+    6000 / devicePixelRatio,
+    2081 / devicePixelRatio
+  );
+}
+
+function drawfighter() {
+  const fighterX = (canvas.width * 0.5) / devicePixelRatio - fighterWidth / 2;
+  const fighterY = canvas.height / devicePixelRatio - fighterHeight - 30;
 
   context.drawImage(
-    planeImage,
+    fighterImage,
     frames[frame],
-    planeSourceY,
-    planeSourceWidth,
-    planeSourcHeight,
-    planeX,
-    planeY,
-    planeWidth,
-    planeHeight
+    fighterSourceY,
+    fighterSourceWidth,
+    fighterSourcHeight,
+    fighterX,
+    fighterY,
+    fighterWidth,
+    fighterHeight
   );
 
   frame = (frame + 1) % frames.length;
@@ -36,7 +56,8 @@ function drawPlane() {
 
 function update() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  drawPlane();
+  drawMap();
+  drawfighter();
 }
 
 function start() {
@@ -49,7 +70,7 @@ function start() {
   requestAnimationFrame(step);
 }
 
-function main() {
+async function main() {
   devicePixelRatio = window.devicePixelRatio || 1;
   canvas = document.getElementById("canvas");
   context = canvas.getContext("2d");
@@ -61,9 +82,12 @@ function main() {
 
   context.scale(devicePixelRatio, devicePixelRatio);
 
-  planeImage = new Image();
-  planeImage.setAttribute("src", planeSprite);
-  planeImage.addEventListener("load", () => {
+  const imageLoader = new ImageLoader();
+
+  fighterImage = await imageLoader.load(fighterImagePath);
+  mapImage = await imageLoader.load(mapImagePath);
+
+  await imageLoader.ready(() => {
     start();
   });
 }

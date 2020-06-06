@@ -8,6 +8,10 @@
     "build": "parcel build src/client/index.html"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }
