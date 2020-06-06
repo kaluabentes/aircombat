@@ -4,6 +4,8 @@
 }
 
 #canvas {
-  background: lightblue;
+  background: #299ee7;
   display: block;
+  width: 100vw;
+  height: 100vh;
 }
