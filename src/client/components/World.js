@@ -2,8 +2,8 @@ import ImageLoader from "../core/ImageLoader";
 
 import worldImage from "../assets/images/world.png";
 
-export const WORLD_WIDTH = 6000;
-export const WORLD_HEIGHT = 4163;
+export const WORLD_WIDTH = 11926;
+export const WORLD_HEIGHT = 8325;
 
 export default class World {
   constructor(context, image) {

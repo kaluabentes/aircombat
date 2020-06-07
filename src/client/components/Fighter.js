@@ -8,16 +8,23 @@ import {
 
 import fighterImage from "../assets/images/fighter.png";
 
+const NORMAL_HEIGHT = 175;
+const NORMAL_SOURCE_HEIGHT = 350;
+const NORMAL_SOURCE_Y = 0;
+const BOOST_HEIGHT = 205;
+const BOOST_SOURCE_HEIGHT = 381;
+const BOOST_SOURCE_Y = 350;
+
 export default class Fighter {
   constructor(context, image) {
     this.context = context;
     this.image = image;
 
     this.width = 123;
-    this.height = 175;
+    this.height = NORMAL_HEIGHT;
     this.sourceWidth = 245;
-    this.sourcHeight = 350;
-    this.sourceY = 0;
+    this.sourceHeight = NORMAL_SOURCE_HEIGHT;
+    this.sourceY = NORMAL_SOURCE_Y;
     this.velocity = 10;
 
     this.frames = [0, 245, 490];
@@ -58,6 +65,16 @@ export default class Fighter {
       this.y += this.velocity;
     }
 
+    if (this.moveLeft || this.moveUp || this.moveRight || this.moveDown) {
+      this.sourceY = BOOST_SOURCE_Y;
+      this.sourceHeight = BOOST_SOURCE_HEIGHT;
+      this.height = BOOST_HEIGHT;
+    } else {
+      this.sourceHeight = NORMAL_SOURCE_HEIGHT;
+      this.sourceY = NORMAL_SOURCE_Y;
+      this.height = NORMAL_HEIGHT;
+    }
+
     this.frame = (this.frame + 1) % this.frames.length;
   }
 
@@ -67,7 +84,7 @@ export default class Fighter {
       this.frames[this.frame],
       this.sourceY,
       this.sourceWidth,
-      this.sourcHeight,
+      this.sourceHeight,
       this.x,
       this.y,
       this.width,
