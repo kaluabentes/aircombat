@@ -13,6 +13,8 @@ export default class Game {
     this.context.devicePixelRatio = this.devicePixelRatio;
 
     // Setup canvas
+    // Set canvas dimensions proportional to device pixel ratio for sharp images.
+    // Any calculations that need to be based in canvas phisical size need to be divided by devicePixelRatio.
     const canvasWidth =
       window.innerWidth > CANVAS_MAX_WIDTH
         ? CANVAS_MAX_WIDTH
