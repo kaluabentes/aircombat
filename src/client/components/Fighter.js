@@ -48,6 +48,8 @@ export default class Fighter {
   }
 
   update() {
+    this.y += -5;
+
     if (this.moveLeft) {
       this.x -= this.velocity;
     }
@@ -74,8 +76,6 @@ export default class Fighter {
   }
 
   draw() {
-    this.y += -5;
-
     this.context.drawImage(
       this.image,
       this.frames[this.frame],
