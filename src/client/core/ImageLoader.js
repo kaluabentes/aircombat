@@ -1,10 +1,11 @@
 export default class ImageLoader {
-  constructor() {
-    this.images = [];
-  }
-
-  load(imagePath) {
-    const imagePromisified = new Promise((resolve) => {
+  /**
+   * The path of the image to be loaded
+   * @param {string} imagePath
+   * @returns {Promise<HTMLImageElement>} Image instance promisified
+   */
+  static load(imagePath) {
+    return new Promise((resolve) => {
       const image = new Image();
 
       image.setAttribute("src", imagePath);
@@ -12,14 +13,5 @@ export default class ImageLoader {
         resolve(image);
       });
     });
-
-    this.images.push(imagePromisified);
-
-    return imagePromisified;
-  }
-
-  async ready(callback) {
-    await Promise.all(this.images);
-    callback();
   }
 }
