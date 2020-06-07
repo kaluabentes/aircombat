@@ -48,6 +48,42 @@ export default class Fighter {
     return new Fighter(context, image);
   }
 
+  addEventListeners() {
+    window.addEventListener("keydown", (event) => {
+      switch (event.keyCode) {
+        case ARROW_LEFT_KEY: {
+          this.moveLeft = true;
+          break;
+        }
+        case ARROW_UP_KEY: {
+          this.moveUp = true;
+          break;
+        }
+        case ARROW_RIGHT_KEY: {
+          this.moveRight = true;
+          break;
+        }
+      }
+    });
+
+    window.addEventListener("keyup", (event) => {
+      switch (event.keyCode) {
+        case ARROW_LEFT_KEY: {
+          this.moveLeft = false;
+          break;
+        }
+        case ARROW_UP_KEY: {
+          this.moveUp = false;
+          break;
+        }
+        case ARROW_RIGHT_KEY: {
+          this.moveRight = false;
+          break;
+        }
+      }
+    });
+  }
+
   update() {
     this.y += -this.normalVelocity;
 
@@ -88,41 +124,5 @@ export default class Fighter {
       this.width,
       this.height
     );
-  }
-
-  addEventListeners() {
-    window.addEventListener("keydown", (event) => {
-      switch (event.keyCode) {
-        case ARROW_LEFT_KEY: {
-          this.moveLeft = true;
-          break;
-        }
-        case ARROW_UP_KEY: {
-          this.moveUp = true;
-          break;
-        }
-        case ARROW_RIGHT_KEY: {
-          this.moveRight = true;
-          break;
-        }
-      }
-    });
-
-    window.addEventListener("keyup", (event) => {
-      switch (event.keyCode) {
-        case ARROW_LEFT_KEY: {
-          this.moveLeft = false;
-          break;
-        }
-        case ARROW_UP_KEY: {
-          this.moveUp = false;
-          break;
-        }
-        case ARROW_RIGHT_KEY: {
-          this.moveRight = false;
-          break;
-        }
-      }
-    });
   }
 }
