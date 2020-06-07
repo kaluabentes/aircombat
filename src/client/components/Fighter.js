@@ -18,6 +18,7 @@ export default class Fighter {
     this.sourceWidth = 245;
     this.sourcHeight = 350;
     this.sourceY = 0;
+    this.velocity = 10;
 
     this.frames = [0, 245, 490];
     this.frame = 0;
@@ -30,14 +31,6 @@ export default class Fighter {
     this.addEventListeners();
   }
 
-  setX(x) {
-    this.x = x;
-  }
-
-  setY(y) {
-    this.y = y;
-  }
-
   /**
    * Factory method
    * @param {CanvasRenderingContext2D} context
@@ -48,15 +41,27 @@ export default class Fighter {
     return new Fighter(context, image);
   }
 
-  draw() {
+  update() {
     if (this.moveLeft) {
-      this.x -= 2;
+      this.x -= this.velocity;
+    }
+
+    if (this.moveUp) {
+      this.y -= this.velocity;
     }
 
     if (this.moveRight) {
-      this.x += 2;
+      this.x += this.velocity;
     }
 
+    if (this.moveDown) {
+      this.y += this.velocity;
+    }
+
+    this.frame = (this.frame + 1) % this.frames.length;
+  }
+
+  draw() {
     this.context.drawImage(
       this.image,
       this.frames[this.frame],
@@ -68,8 +73,6 @@ export default class Fighter {
       this.width,
       this.height
     );
-
-    this.frame = (this.frame + 1) % this.frames.length;
   }
 
   addEventListeners() {
@@ -77,15 +80,19 @@ export default class Fighter {
       switch (event.keyCode) {
         case ARROW_LEFT_KEY: {
           this.moveLeft = true;
+          break;
         }
         case ARROW_UP_KEY: {
           this.moveUp = true;
+          break;
         }
         case ARROW_RIGHT_KEY: {
           this.moveRight = true;
+          break;
         }
         case ARROW_DOWN_KEY: {
           this.moveDown = true;
+          break;
         }
       }
     });
@@ -94,15 +101,19 @@ export default class Fighter {
       switch (event.keyCode) {
         case ARROW_LEFT_KEY: {
           this.moveLeft = false;
+          break;
         }
         case ARROW_UP_KEY: {
           this.moveUp = false;
+          break;
         }
         case ARROW_RIGHT_KEY: {
           this.moveRight = false;
+          break;
         }
         case ARROW_DOWN_KEY: {
           this.moveDown = false;
+          break;
         }
       }
     });

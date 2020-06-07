@@ -23,10 +23,17 @@ export default class Game {
 
     this.camera = new Camera(
       0,
-      -(WORLD_HEIGHT / this.devicePixelRatio) + this.getCanvasHeight(),
+      0,
       this.getCanvasWidth(),
       this.getCanvasHeight()
     );
+  }
+
+  setCameraPosition() {
+    this.camera.x =
+      this.fighter.x - this.camera.width / 2 + this.fighter.width / 2;
+    this.camera.y =
+      this.fighter.y - (this.camera.height - this.fighter.height - 30);
   }
 
   getCanvasHeight() {
@@ -39,12 +46,12 @@ export default class Game {
 
   async load() {
     this.fighter = await Fighter.load(this.context);
-    this.fighter.setX(this.getCanvasWidth() / 2 - this.fighter.width / 2);
-    this.fighter.setY(
-      -this.camera.y + this.getCanvasHeight() - this.fighter.height - 30
-    );
+    this.fighter.x = this.getCanvasWidth() / 2 - this.fighter.width / 2;
+    this.fighter.y = this.getCanvasHeight() - this.fighter.height - 30;
 
     this.world = await World.load(this.context);
+
+    this.setCameraPosition();
   }
 
   start() {
@@ -54,6 +61,7 @@ export default class Game {
 
     const step = () => {
       this.draw();
+      this.update();
 
       requestAnimationFrame(step);
     };
@@ -61,10 +69,22 @@ export default class Game {
     requestAnimationFrame(step);
   }
 
+  /**
+   * Update state
+   */
+  update() {
+    this.setCameraPosition();
+    this.fighter.update();
+  }
+
+  /**
+   * Take state and draw
+   */
   draw() {
     this.context.save();
     this.context.clearRect(0, 0, canvas.width, canvas.height);
-    this.context.translate(this.camera.x, this.camera.y);
+
+    this.context.translate(-this.camera.x, -this.camera.y);
 
     this.world.draw();
     this.fighter.draw();
