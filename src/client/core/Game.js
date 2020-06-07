@@ -45,11 +45,13 @@ export default class Game {
   }
 
   async load() {
+    this.world = await World.load(this.context);
+    this.worldWidth = this.world.width / this.devicePixelRatio;
+    this.worldHeight = this.world.height / this.devicePixelRatio;
+
     this.fighter = await Fighter.load(this.context);
     this.fighter.x = this.getCanvasWidth() / 2 - this.fighter.width / 2;
-    this.fighter.y = this.getCanvasHeight() - this.fighter.height - 30;
-
-    this.world = await World.load(this.context);
+    this.fighter.y = this.worldHeight - this.fighter.height - 30;
 
     this.setCameraPosition();
   }

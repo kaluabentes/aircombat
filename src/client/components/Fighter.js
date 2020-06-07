@@ -33,7 +33,6 @@ export default class Fighter {
     this.moveLeft = false;
     this.moveUp = false;
     this.moveRight = false;
-    this.moveDown = false;
 
     this.addEventListeners();
   }
@@ -61,11 +60,7 @@ export default class Fighter {
       this.x += this.velocity;
     }
 
-    if (this.moveDown) {
-      this.y += this.velocity;
-    }
-
-    if (this.moveLeft || this.moveUp || this.moveRight || this.moveDown) {
+    if (this.moveUp) {
       this.sourceY = BOOST_SOURCE_Y;
       this.sourceHeight = BOOST_SOURCE_HEIGHT;
       this.height = BOOST_HEIGHT;
@@ -79,6 +74,8 @@ export default class Fighter {
   }
 
   draw() {
+    this.y += -5;
+
     this.context.drawImage(
       this.image,
       this.frames[this.frame],
@@ -107,10 +104,6 @@ export default class Fighter {
           this.moveRight = true;
           break;
         }
-        case ARROW_DOWN_KEY: {
-          this.moveDown = true;
-          break;
-        }
       }
     });
 
@@ -126,10 +119,6 @@ export default class Fighter {
         }
         case ARROW_RIGHT_KEY: {
           this.moveRight = false;
-          break;
-        }
-        case ARROW_DOWN_KEY: {
-          this.moveDown = false;
           break;
         }
       }

@@ -10,8 +10,8 @@ export default class World {
     this.context = context;
     this.image = image;
 
-    this.sourceWidth = WORLD_WIDTH;
-    this.sourceHeight = WORLD_HEIGHT;
+    this.width = WORLD_WIDTH;
+    this.height = WORLD_HEIGHT;
   }
 
   /**
@@ -29,12 +29,12 @@ export default class World {
       this.image,
       0,
       0,
-      this.sourceWidth,
-      this.sourceHeight,
+      this.width,
+      this.height,
       0,
       0,
-      this.sourceWidth / this.context.devicePixelRatio,
-      this.sourceHeight / this.context.devicePixelRatio
+      this.width / this.context.devicePixelRatio,
+      this.height / this.context.devicePixelRatio
     );
   }
 }
