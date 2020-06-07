@@ -25,7 +25,8 @@ export default class Fighter {
     this.sourceWidth = 245;
     this.sourceHeight = NORMAL_SOURCE_HEIGHT;
     this.sourceY = NORMAL_SOURCE_Y;
-    this.velocity = 10;
+    this.normalVelocity = 5;
+    this.boostVelocity = 10;
 
     this.frames = [0, 245, 490];
     this.frame = 0;
@@ -48,18 +49,18 @@ export default class Fighter {
   }
 
   update() {
-    this.y += -5;
+    this.y += -this.normalVelocity;
 
     if (this.moveLeft) {
-      this.x -= this.velocity;
+      this.x -= this.boostVelocity;
     }
 
     if (this.moveUp) {
-      this.y -= this.velocity;
+      this.y -= this.boostVelocity;
     }
 
     if (this.moveRight) {
-      this.x += this.velocity;
+      this.x += this.boostVelocity;
     }
 
     if (this.moveUp) {
