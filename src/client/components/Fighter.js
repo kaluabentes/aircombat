@@ -9,7 +9,7 @@ import {
 import fighterImage from "../assets/images/fighter.png";
 
 export default class Fighter {
-  constructor(context, image, coords) {
+  constructor(context, image) {
     this.context = context;
     this.image = image;
 
